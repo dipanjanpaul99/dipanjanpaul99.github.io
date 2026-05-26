@@ -1,0 +1,156 @@
+{
+  "master": {
+    "tasks": [
+      {
+        "id": "1",
+        "title": "Initialize Next.js Project with TypeScript and Tailwind",
+        "description": "Set up the foundational project structure using Next.js App Router, TypeScript for type safety, and Tailwind CSS for styling.",
+        "details": "Run 'npx create-next-app@latest portfolio --typescript --tailwind --eslint'. Configure 'next.config.js' for static export if needed. Ensure 'tsconfig.json' is set up correctly. Initialize git repository.",
+        "testStrategy": "Verify project builds successfully with 'npm run build'. Check that TypeScript compiles without errors and Tailwind classes are applied in the default page.",
+        "priority": "high",
+        "dependencies": [],
+        "status": "completed",
+        "subtasks": [],
+        "updatedAt": "2026-05-25T05:00:46.550Z"
+      },
+      {
+        "id": "2",
+        "title": "Configure GitHub Pages Deployment",
+        "description": "Set up the deployment pipeline to host the site at [<myusername>.github.io].",
+        "details": "Update 'next.config.js' to output static files ('output: export'). Add a GitHub Actions workflow or configure build settings in repository settings for Pages. Ensure base URL is set correctly.",
+        "testStrategy": "Deploy a test branch and verify the site is accessible at the specified GitHub Pages URL.",
+        "priority": "high",
+        "dependencies": [
+          "1"
+        ],
+        "status": "pending",
+        "subtasks": []
+      },
+      {
+        "id": "3",
+        "title": "Implement Design System and Dark Mode",
+        "description": "Integrate shadcn/ui components and configure Tailwind for a modern dark mode aesthetic.",
+        "details": "Install 'shadcn-ui' CLI. Configure 'tailwind.config.js' with dark mode strategy ('class'). Define global CSS variables for dark theme colors in 'globals.css'. Ensure components support dark mode toggling.",
+        "testStrategy": "Render a test page with shadcn components (Button, Card). Verify dark mode classes apply correctly and contrast ratios meet accessibility standards.",
+        "priority": "high",
+        "dependencies": [
+          "1"
+        ],
+        "status": "completed",
+        "subtasks": []
+      },
+      {
+        "id": "4",
+        "title": "Create Data Dictionary Structure for Dynamic Content",
+        "description": "Define TypeScript interfaces and data objects for Projects, Experience, Education, and Tech Stack to enable easy future updates.",
+        "details": "Create a 'data' directory with separate files (e.g., 'projects.ts', 'experience.ts'). Define interfaces for each section (title, description, date, link). Export these as constants to be imported by components.",
+        "testStrategy": "Import data objects into a dummy component and verify TypeScript types match the expected structure. Ensure no runtime errors occur when rendering data.",
+        "priority": "high",
+        "dependencies": [
+          "1"
+        ],
+        "status": "completed",
+        "subtasks": []
+      },
+      {
+        "id": "5",
+        "title": "Build Main Layout and Navigation",
+        "description": "Construct the responsive layout shell including header navigation and footer.",
+        "details": "Create 'app/layout.tsx' with a sticky navbar using shadcn's NavigationMenu. Implement smooth scrolling anchor links for sections (Hero, About, Projects). Ensure mobile menu works via responsive breakpoints.",
+        "testStrategy": "Navigate between sections using the menu. Verify navigation bar remains accessible on mobile and desktop. Check that scroll behavior is smooth.",
+        "priority": "medium",
+        "dependencies": [
+          "1",
+          "3"
+        ],
+        "status": "completed",
+        "subtasks": []
+      },
+      {
+        "id": "6",
+        "title": "Implement Hero Section",
+        "description": "Develop the top section with summary statement and 'View my Work' CTA button.",
+        "details": "Create 'Hero.tsx' component. Use Tailwind for centering content. Implement the 'View my Work' button linking to the Projects section ID. Ensure text is responsive and legible on mobile.",
+        "testStrategy": "Verify Hero section renders correctly on mobile (stacked) and desktop (centered). Click CTA button and confirm navigation to Projects section.",
+        "priority": "medium",
+        "dependencies": [
+          "5"
+        ],
+        "status": "completed",
+        "subtasks": []
+      },
+      {
+        "id": "7",
+        "title": "Develop About Me and Tech Stack Sections",
+        "description": "Build the 'About Me' and 'Tech Stack' sections using the data dictionary.",
+        "details": "Create 'AboutMe.tsx' and 'TechStack.tsx'. Map over the data dictionaries to render lists of skills or bio text. Use shadcn Cards for tech stack items.",
+        "testStrategy": "Check that all defined skills appear in Tech Stack. Verify About Me text matches the data dictionary content.",
+        "priority": "medium",
+        "dependencies": [
+          "4",
+          "5"
+        ],
+        "status": "completed",
+        "subtasks": []
+      },
+      {
+        "id": "8",
+        "title": "Develop Professional Experience and Education Sections",
+        "description": "Build sections for work history and academic background using dynamic data.",
+        "details": "Create 'Experience.tsx' and 'Education.tsx'. Use a timeline or card layout to display roles/degrees. Ensure dates and company names are pulled from the data dictionary.",
+        "testStrategy": "Verify all entries in the experience/education dictionaries render correctly. Check date formatting consistency.",
+        "priority": "medium",
+        "dependencies": [
+          "4",
+          "5"
+        ],
+        "status": "completed",
+        "subtasks": []
+      },
+      {
+        "id": "9",
+        "title": "Implement Projects Section",
+        "description": "Build the main portfolio showcase section with project cards and links.",
+        "details": "Create 'Projects.tsx'. Render project cards using shadcn Card components. Include images (placeholders if needed), titles, descriptions, and links to live demos/repos. Ensure grid layout is responsive.",
+        "testStrategy": "Verify all projects from the dictionary render. Check that external links open in new tabs. Test image loading states.",
+        "priority": "medium",
+        "dependencies": [
+          "4",
+          "5"
+        ],
+        "status": "completed",
+        "subtasks": []
+      },
+      {
+        "id": "10",
+        "title": "Optimize SEO and Performance",
+        "description": "Ensure mobile-first design, fast loading times, and SEO friendliness.",
+        "details": "Add metadata to 'layout.tsx' (title, description). Implement lazy loading for images. Minimize CSS bundle size. Run Lighthouse audit and fix accessibility issues.",
+        "testStrategy": "Run 'npm run build' and check bundle size. Use Lighthouse to verify performance score >90 and SEO score 100. Test mobile responsiveness on various devices.",
+        "priority": "medium",
+        "dependencies": [
+          "1",
+          "2",
+          "3",
+          "4",
+          "5",
+          "6",
+          "7",
+          "8",
+          "9"
+        ],
+        "status": "completed",
+        "subtasks": []
+      }
+    ],
+    "metadata": {
+      "version": "1.0.0",
+      "lastModified": "2026-05-25T05:00:46.550Z",
+      "taskCount": 10,
+      "completedCount": 9,
+      "tags": [
+        "master"
+      ]
+    }
+  }
+}

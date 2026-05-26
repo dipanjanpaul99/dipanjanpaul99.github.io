@@ -1,0 +1,37 @@
+<context>
+# Overview  
+Build a responsive personal portfolio website.
+
+# Core Features  
+One page website that includes:
+- Hero section with a summary statement with a View my WOrk button
+- About Me
+- My Tech Stack
+- Professional Experience
+- Education
+- Projects
+
+# User Experience  
+Requirements:
+- Mobile-first
+- Fast loading
+- SEO friendly
+- Responsive design
+</context>
+<PRD>
+# Technical Architecture  
+Outline the technical implementation details:
+- Next.js
+- TypeScript
+- Tailwind
+- Id be uploading this project to my github and host it there as [<myusername>.github.io]
+
+# Development Roadmap  
+- Build the overall website frame, then one section at a time
+- Make sure for sections which needs items, to use a dictionary to save fields for easy future updates, then render the dictionary in the page.
+
+# Looks
+- Should feel modern and dark mode
+- use shadcn components as needed.
+
+</PRD>

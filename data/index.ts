@@ -1,0 +1,5 @@
+export { type Project, projects } from "./projects"
+export { type Experience, experiences } from "./experience"
+export { type Education, education } from "./education"
+export { type TechCategory, techStack } from "./tech-stack"
+export { personalInfo } from "./personal"
