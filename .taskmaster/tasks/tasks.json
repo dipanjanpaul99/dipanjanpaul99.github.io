@@ -4,153 +4,137 @@
       {
         "id": "1",
         "title": "Initialize Next.js Project with TypeScript and Tailwind",
-        "description": "Set up the foundational project structure using Next.js App Router, TypeScript for type safety, and Tailwind CSS for styling.",
-        "details": "Run 'npx create-next-app@latest portfolio --typescript --tailwind --eslint'. Configure 'next.config.js' for static export if needed. Ensure 'tsconfig.json' is set up correctly. Initialize git repository.",
-        "testStrategy": "Verify project builds successfully with 'npm run build'. Check that TypeScript compiles without errors and Tailwind classes are applied in the default page.",
+        "description": "Set up the foundational project structure using Next.js App Router, TypeScript for type safety, and Tailwind CSS v4 for styling.",
+        "details": "Run 'npx create-next-app@latest portfolio --typescript --eslint'. Configure 'next.config.ts' for static export ('output: export'). Install Tailwind CSS v4, 'tw-animate-css', and '@tailwindcss/postcss'. Set up 'postcss.config.mjs' with Tailwind v4 plugin. Ensure 'tsconfig.json' and path aliases ('@/*') are configured.",
+        "testStrategy": "Verify project builds successfully with 'npm run build'. Check that TypeScript compiles without errors. Confirm Tailwind v4 is working via 'app/globals.css' with '@import \"tailwindcss\"'.",
         "priority": "high",
         "dependencies": [],
         "status": "completed",
         "subtasks": [],
-        "updatedAt": "2026-05-25T05:00:46.550Z"
+        "updatedAt": "2026-06-17T12:00:00.000Z"
       },
       {
         "id": "2",
         "title": "Configure GitHub Pages Deployment",
         "description": "Set up the deployment pipeline to host the site at [<myusername>.github.io].",
-        "details": "Update 'next.config.js' to output static files ('output: export'). Add a GitHub Actions workflow or configure build settings in repository settings for Pages. Ensure base URL is set correctly.",
-        "testStrategy": "Deploy a test branch and verify the site is accessible at the specified GitHub Pages URL.",
+        "details": "Set 'output: export' in 'next.config.ts'. Add 'basePath' if deploying to a sub-path (e.g. '/Dipanjan-portfolio'). Configure GitHub Actions workflow or use Pages settings in the repository. Ensure static assets ('out/') build correctly and the site is accessible.",
+        "testStrategy": "Deploy a test branch and verify the site is accessible at the specified GitHub Pages URL. Run 'npm run build' and confirm 'out/' directory contains 'index.html' and all assets.",
         "priority": "high",
-        "dependencies": [
-          "1"
+        "dependencies": ["1"],
+        "status": "completed",
+        "subtasks": [
+          {
+            "id": "2a",
+            "title": "Quality gate — lint, typecheck, build",
+            "description": "Run 'npm run lint', type check, and 'npm run build' to verify clean output before merge.",
+            "status": "completed"
+          }
         ],
-        "status": "pending",
-        "subtasks": []
+        "updatedAt": "2026-06-17T12:30:00.000Z"
       },
       {
         "id": "3",
-        "title": "Implement Design System and Dark Mode",
-        "description": "Integrate shadcn/ui components and configure Tailwind for a modern dark mode aesthetic.",
-        "details": "Install 'shadcn-ui' CLI. Configure 'tailwind.config.js' with dark mode strategy ('class'). Define global CSS variables for dark theme colors in 'globals.css'. Ensure components support dark mode toggling.",
-        "testStrategy": "Render a test page with shadcn components (Button, Card). Verify dark mode classes apply correctly and contrast ratios meet accessibility standards.",
+        "title": "Implement Design System — founder war-room / blueprint desk",
+        "description": "Implement the DESIGN.md visual system with exact oklch tokens, utility classes, fonts, shadcn/ui, and next-themes dark mode.",
+        "details": "Install required shadcn/ui components (Button, Card, Badge, NavigationMenu, Sheet, Separator). Configure 'app/globals.css' with '@theme inline' block defining all DESIGN.md color tokens (background, foreground, primary-amber, accent-teal, card, border, ring, etc.). Define utility classes: '.planner-bg' (layered grid + orbs), '.glass-panel' (translucent hero panel), '.paper-card' (default card), '.blueprint-surface' (compact grid), '.command-strip' (amber-to-teal-to-violet), '.micro-label' (mono uppercase). Set up 'next-themes' with class-based dark mode, dark default. Install fonts via 'next/font': IBM Plex Sans (body), Fraunces (display), IBM Plex Mono (code). Wire fonts into HTML. Set up 'cn()' utility in 'lib/utils.ts'. Ensure all shadcn rules are followed: 'flex gap-*' never 'space-*', 'size-*' for equal dimensions, 'cn()' for conditional classes, semantic color tokens only.",
+        "testStrategy": "Render test pages with shadcn components. Verify all DESIGN.md oklch tokens are present in globals.css. Confirm dark mode default class is applied. Check fonts load correctly via devtools. Verify utility classes render expected visual effects. Run 'npm run build' to confirm no errors.",
         "priority": "high",
-        "dependencies": [
-          "1"
-        ],
+        "dependencies": ["1"],
         "status": "completed",
-        "subtasks": []
+        "subtasks": [],
+        "updatedAt": "2026-06-17T12:00:00.000Z"
       },
       {
         "id": "4",
         "title": "Create Data Dictionary Structure for Dynamic Content",
-        "description": "Define TypeScript interfaces and data objects for Projects, Experience, Education, and Tech Stack to enable easy future updates.",
-        "details": "Create a 'data' directory with separate files (e.g., 'projects.ts', 'experience.ts'). Define interfaces for each section (title, description, date, link). Export these as constants to be imported by components.",
-        "testStrategy": "Import data objects into a dummy component and verify TypeScript types match the expected structure. Ensure no runtime errors occur when rendering data.",
+        "description": "Define TypeScript interfaces and static data objects for Projects, Experience, Education, and Tech Stack to enable easy future updates.",
+        "details": "Create 'data/' directory with separate files: 'personal.ts' (name, bio, tagline), 'projects.ts' (title, description, tech, links), 'experience.ts' (company, role, dates, highlights), 'education.ts' (institution, degree, year), 'tech-stack.ts' (category, skills). Define shared TypeScript interfaces in 'data/index.ts'. Export data as typed constants for direct import by server components. Follow the static data pattern: simple exported arrays/objects, no side effects.",
+        "testStrategy": "Import data objects into a test component and verify TypeScript types match the expected structure. Confirm all required fields are present. Ensure no runtime errors.",
         "priority": "high",
-        "dependencies": [
-          "1"
-        ],
+        "dependencies": ["1"],
         "status": "completed",
-        "subtasks": []
+        "subtasks": [],
+        "updatedAt": "2026-06-17T12:00:00.000Z"
       },
       {
         "id": "5",
         "title": "Build Main Layout and Navigation",
-        "description": "Construct the responsive layout shell including header navigation and footer.",
-        "details": "Create 'app/layout.tsx' with a sticky navbar using shadcn's NavigationMenu. Implement smooth scrolling anchor links for sections (Hero, About, Projects). Ensure mobile menu works via responsive breakpoints.",
-        "testStrategy": "Navigate between sections using the menu. Verify navigation bar remains accessible on mobile and desktop. Check that scroll behavior is smooth.",
+        "description": "Construct the responsive layout shell including header navigation, footer, and container following DESIGN.md layout specs.",
+        "details": "Create 'app/layout.tsx' with the DESIGN.md layout pattern: '<main className=\"planner-bg min-h-screen flex-1\"><div className=\"container mx-auto max-w-[1500px] px-4 py-8 lg:py-12\">'. Build 'SiteHeader' with sticky navbar using shadcn NavigationMenu. Implement mobile hamburger menu via shadcn Sheet. Create 'SiteFooter'. Implement smooth-scroll anchor links for sections. On mobile: single-column, no sticky behavior. Use 'flex gap-*' for all spacing — never 'space-*'.",
+        "testStrategy": "Navigate between sections using the menu. Verify sticky header on scroll. Confirm mobile Sheet menu opens/closes correctly. Check footer renders at bottom. Test responsive breakpoints match DESIGN.md mobile (single-column) vs desktop (sticky left rail).",
         "priority": "medium",
-        "dependencies": [
-          "1",
-          "3"
-        ],
+        "dependencies": ["1", "3"],
         "status": "completed",
-        "subtasks": []
+        "subtasks": [],
+        "updatedAt": "2026-06-17T12:00:00.000Z"
       },
       {
         "id": "6",
         "title": "Implement Hero Section",
-        "description": "Develop the top section with summary statement and 'View my Work' CTA button.",
-        "details": "Create 'Hero.tsx' component. Use Tailwind for centering content. Implement the 'View my Work' button linking to the Projects section ID. Ensure text is responsive and legible on mobile.",
-        "testStrategy": "Verify Hero section renders correctly on mobile (stacked) and desktop (centered). Click CTA button and confirm navigation to Projects section.",
+        "description": "Develop the top section with summary statement and 'View my Work' CTA button, following the design system.",
+        "details": "Create 'Hero.tsx' component. Use Fraunces display font for heading. Implement the 'View my Work' button (shadcn Button with 'command-strip' styling) linking to Projects section ID. Ensure responsive text sizing. Use 'flex gap-*' for layout. Apply semantic color tokens only. Button icon with 'data-icon' attribute.",
+        "testStrategy": "Verify Hero section renders correctly on mobile (stacked) and desktop (centered). Click CTA button and confirm smooth scroll to Projects section. Check Fraunces font is applied to heading. Run 'npm run build' and 'npm run lint'.",
         "priority": "medium",
-        "dependencies": [
-          "5"
-        ],
+        "dependencies": ["5"],
         "status": "completed",
-        "subtasks": []
+        "subtasks": [],
+        "updatedAt": "2026-06-17T12:00:00.000Z"
       },
       {
         "id": "7",
         "title": "Develop About Me and Tech Stack Sections",
-        "description": "Build the 'About Me' and 'Tech Stack' sections using the data dictionary.",
-        "details": "Create 'AboutMe.tsx' and 'TechStack.tsx'. Map over the data dictionaries to render lists of skills or bio text. Use shadcn Cards for tech stack items.",
-        "testStrategy": "Check that all defined skills appear in Tech Stack. Verify About Me text matches the data dictionary content.",
+        "description": "Build the About Me and Tech Stack sections using the data dictionary, following shadcn rules and design system.",
+        "details": "Create 'AboutMe.tsx' and 'TechStack.tsx'. Import data from 'data/personal.ts' and 'data/tech-stack.ts'. Render Tech Stack items using shadcn Card components with proper Card composition (CardHeader/CardTitle/CardContent). Use Badge for skill labels (mono, uppercase, wide-tracked). Apply '.micro-label' for section eyebrows. Use 'flex gap-*' for layout — never 'space-*'. Use 'size-*' for equal dimensions. Use 'cn()' for conditional classes.",
+        "testStrategy": "Check that all defined skills from data dictionary appear in Tech Stack. Verify About Me text matches data content. Confirm Badge component styling (mono, uppercase, pill shape). Check Card composition is correct.",
         "priority": "medium",
-        "dependencies": [
-          "4",
-          "5"
-        ],
+        "dependencies": ["4", "5"],
         "status": "completed",
-        "subtasks": []
+        "subtasks": [],
+        "updatedAt": "2026-06-17T12:00:00.000Z"
       },
       {
         "id": "8",
         "title": "Develop Professional Experience and Education Sections",
-        "description": "Build sections for work history and academic background using dynamic data.",
-        "details": "Create 'Experience.tsx' and 'Education.tsx'. Use a timeline or card layout to display roles/degrees. Ensure dates and company names are pulled from the data dictionary.",
-        "testStrategy": "Verify all entries in the experience/education dictionaries render correctly. Check date formatting consistency.",
+        "description": "Build sections for work history and academic background using dynamic data from the data dictionary.",
+        "details": "Create 'Experience.tsx' and 'Education.tsx' components. Display roles/degrees using Card or timeline layout. Ensure dates and company names are pulled from 'data/experience.ts' and 'data/education.ts'. Use '.micro-label' for date eyebrows. Use proper Card composition pattern. Use 'flex gap-*', 'size-*', and 'cn()' consistently.",
+        "testStrategy": "Verify all entries in the experience/education dictionaries render correctly with correct ordering. Check date formatting consistency. Confirm types match interfaces.",
         "priority": "medium",
-        "dependencies": [
-          "4",
-          "5"
-        ],
+        "dependencies": ["4", "5"],
         "status": "completed",
-        "subtasks": []
+        "subtasks": [],
+        "updatedAt": "2026-06-17T12:00:00.000Z"
       },
       {
         "id": "9",
         "title": "Implement Projects Section",
-        "description": "Build the main portfolio showcase section with project cards and links.",
-        "details": "Create 'Projects.tsx'. Render project cards using shadcn Card components. Include images (placeholders if needed), titles, descriptions, and links to live demos/repos. Ensure grid layout is responsive.",
-        "testStrategy": "Verify all projects from the dictionary render. Check that external links open in new tabs. Test image loading states.",
+        "description": "Build the main portfolio showcase section with project cards and links, following the design system.",
+        "details": "Create 'Projects.tsx' component. Render project cards using proper Card composition (CardHeader/CardTitle/CardContent/CardFooter). Use 'next/image' for project screenshots (not '<img>'). Include links to live demos and repos that open in new tabs. Ensure responsive grid layout. Use semantic color tokens. Apply '.micro-label' for section eyebrow.",
+        "testStrategy": "Verify all projects from data dictionary render. Check external links open in new tabs with correct rel attributes. Test image loading and placeholder states. Confirm responsive grid behavior on mobile and desktop.",
         "priority": "medium",
-        "dependencies": [
-          "4",
-          "5"
-        ],
+        "dependencies": ["4", "5"],
         "status": "completed",
-        "subtasks": []
+        "subtasks": [],
+        "updatedAt": "2026-06-17T12:00:00.000Z"
       },
       {
         "id": "10",
         "title": "Optimize SEO and Performance",
-        "description": "Ensure mobile-first design, fast loading times, and SEO friendliness.",
-        "details": "Add metadata to 'layout.tsx' (title, description). Implement lazy loading for images. Minimize CSS bundle size. Run Lighthouse audit and fix accessibility issues.",
-        "testStrategy": "Run 'npm run build' and check bundle size. Use Lighthouse to verify performance score >90 and SEO score 100. Test mobile responsiveness on various devices.",
+        "description": "Ensure mobile-first design, fast loading times, SEO friendliness, and quality gates per AGENTS.md.",
+        "details": "Add 'generateMetadata' or 'metadata' export to 'layout.tsx' with title, description, and OG image. Implement lazy loading for images. Configure 'next/image' with correct 'sizes' attribute. Run Lighthouse audit — fix performance, accessibility, and SEO issues. Add 'error.tsx' and 'not-found.tsx' for error handling. Ensure reduced motion is respected ('prefers-reduced-motion'). Add visible focus rings on all interactive elements ('focus-visible:ring-ring/50').",
+        "testStrategy": "Run 'npm run lint' — fix all warnings. Run type check — zero TypeScript errors. Run 'npm run build' — clean build. Use Lighthouse to verify Performance >=90, SEO 100, Accessibility >=90. Test mobile responsiveness on 320px+ widths. Verify keyboard navigation works through all sections.",
         "priority": "medium",
-        "dependencies": [
-          "1",
-          "2",
-          "3",
-          "4",
-          "5",
-          "6",
-          "7",
-          "8",
-          "9"
-        ],
+        "dependencies": ["1", "2", "3", "4", "5", "6", "7", "8", "9"],
         "status": "completed",
-        "subtasks": []
+        "subtasks": [],
+        "updatedAt": "2026-06-17T12:00:00.000Z"
       }
     ],
     "metadata": {
-      "version": "1.0.0",
-      "lastModified": "2026-05-25T05:00:46.550Z",
+      "version": "1.1.0",
+      "lastModified": "2026-06-17T12:00:00.000Z",
       "taskCount": 10,
-      "completedCount": 9,
-      "tags": [
-        "master"
-      ]
+      "completedCount": 10,
+      "tags": ["master"]
     }
   }
 }

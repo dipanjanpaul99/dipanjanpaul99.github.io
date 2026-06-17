@@ -4,6 +4,7 @@ import { TechStackSection } from "@/components/tech-stack"
 import { ExperienceSection } from "@/components/experience"
 import { EducationSection } from "@/components/education"
 import { ProjectsSection } from "@/components/projects"
+import { personalInfo } from "@/data"
 
 function SectionWrapper({
   children,
@@ -13,7 +14,7 @@ function SectionWrapper({
   alternate?: boolean
 }) {
   return (
-    <div className={alternate ? "bg-muted/50" : ""}>
+    <div className={alternate ? "bg-muted/30" : ""}>
       <div className="mx-auto max-w-5xl px-4">{children}</div>
     </div>
   )
@@ -39,14 +40,29 @@ export default function Home() {
         <EducationSection />
       </SectionWrapper>
       <SectionWrapper>
-        <section id="contact" className="py-16">
-          <h2 className="text-2xl font-semibold tracking-tight">Contact</h2>
-          <p className="mt-4 text-muted-foreground">
+        <section id="contact" className="py-20">
+          <h2 className="font-heading section-accent text-3xl font-bold tracking-tight">
+            Contact
+          </h2>
+          <p className="mt-6 text-lg leading-relaxed text-muted-foreground">
             Feel free to reach out for collaborations or opportunities.
           </p>
-          <div className="mt-4 space-y-1 text-sm text-muted-foreground">
-            <p>Email: dipanjan.paul.iitkgp@gmail.com</p>
-            <p>Phone: +91-6290272791</p>
+          <div className="mt-6 flex flex-col gap-2 text-sm">
+            <p className="text-muted-foreground">
+              Email:{" "}
+              <a
+                href={`mailto:${personalInfo.email}`}
+                className="font-medium text-foreground underline underline-offset-4 decoration-primary/30 hover:decoration-primary transition-all"
+              >
+                {personalInfo.email}
+              </a>
+            </p>
+            <p className="text-muted-foreground">
+              Phone:{" "}
+              <span className="font-medium text-foreground">
+                {personalInfo.phone}
+              </span>
+            </p>
           </div>
         </section>
       </SectionWrapper>

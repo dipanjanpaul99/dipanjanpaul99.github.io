@@ -20,10 +20,13 @@ const navItems = [
 
 export function SiteHeader() {
   return (
-    <header className="sticky top-0 z-50 w-full border-b bg-background/80 backdrop-blur-sm">
+    <header className="sticky top-0 z-50 w-full border-b border-border/50 bg-background/70 backdrop-blur-xl">
       <div className="mx-auto flex h-16 max-w-5xl items-center justify-between px-4">
-        <Link href="/" className="text-lg font-semibold tracking-tight">
-          Dipanjan
+        <Link
+          href="/"
+          className="font-heading text-lg font-bold tracking-tight"
+        >
+          <span className="text-gradient">DP</span>
         </Link>
 
         <nav className="hidden items-center gap-1 md:flex">
@@ -31,6 +34,7 @@ export function SiteHeader() {
             <Button
               key={item.href}
               variant="ghost"
+              size="sm"
               asChild
             >
               <a href={item.href}>{item.label}</a>

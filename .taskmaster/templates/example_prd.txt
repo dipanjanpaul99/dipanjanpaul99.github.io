@@ -1,10 +1,10 @@
 <context>
 # Overview  
-Build a responsive personal portfolio website.
+Build a responsive personal portfolio website. Follow the design system in `DESIGN.md` exactly — all UI decisions must derive from it.
 
 # Core Features  
 One page website that includes:
-- Hero section with a summary statement with a View my WOrk button
+- Hero section with a summary statement with a "View my Work" button
 - About Me
 - My Tech Stack
 - Professional Experience
@@ -14,24 +14,64 @@ One page website that includes:
 # User Experience  
 Requirements:
 - Mobile-first
-- Fast loading
-- SEO friendly
+- Fast loading (Lighthouse >90)
+- SEO friendly (Lighthouse SEO 100)
 - Responsive design
 </context>
 <PRD>
 # Technical Architecture  
-Outline the technical implementation details:
-- Next.js
-- TypeScript
-- Tailwind
-- Id be uploading this project to my github and host it there as [<myusername>.github.io]
+Implementation details:
+- **Framework:** Next.js App Router + React + TypeScript
+- **Styling:** Tailwind CSS v4 via `@theme inline` in `app/globals.css`
+- **Components:** shadcn/ui primitives in `components/ui`
+- **Icons:** Lucide React
+- **Fonts:** IBM Plex Sans for UI, Fraunces for display headings, IBM Plex Mono for technical labels (via `next/font`)
+- **Dark mode:** `next-themes`, class-based, dark default
+- **Utilities:** `cn()` from `@/lib/utils`
+- **Deployment:** GitHub Pages via `output: 'export'` in `next.config.ts`
+- **Async APIs:** Use `await` for `cookies()`, `headers()`, `params`, `searchParams` (Next.js 15+)
+- **Data pattern:** Static data objects in `data/` directory, imported by server components
 
-# Development Roadmap  
-- Build the overall website frame, then one section at a time
-- Make sure for sections which needs items, to use a dictionary to save fields for easy future updates, then render the dictionary in the page.
+# Design System (see DESIGN.md)
+Apply the **"founder war-room / blueprint desk"** visual system:
 
-# Looks
-- Should feel modern and dark mode
-- use shadcn components as needed.
+- **Background:** Dark ink (`oklch(0.15 0.038 252)`) with layered blueprint grid texture (`.planner-bg`)
+- **Primary (commands):** Amber (`oklch(0.78 0.16 61)`)
+- **Accent (highlights):** Teal (`oklch(0.77 0.134 178)`)
+- **Depth:** Violet glow accents
+- **Panels:** Glassy translucent surfaces (`.glass-panel`, `.paper-card`)
+- **Grid surface:** `.blueprint-surface` for compact areas
+- **Labels:** `.micro-label` — mono, uppercase, wide tracking
+
+Use semantic tokens only (`bg-background`, `text-muted-foreground`, etc.) — never raw color values.
+
+# Components
+All UI components use shadcn/ui with these rules (see `.agents/skills/shadcn/SKILL.md`):
+- Layout via `flex gap-*` — never `space-x-*` / `space-y-*`
+- Equal dimensions via `size-*` — never `w-* h-*`
+- Conditional classes via `cn()` — never template literal ternaries
+- Icons in buttons use `data-icon="inline-start"` / `data-icon="inline-end"`
+- Full Card composition (`CardHeader`/`CardTitle`/`CardContent`/`CardFooter`)
+- Semantic variants (`variant="outline"`, `size="sm"`) before custom styles
+
+# Development Roadmap
+1. Project initialization and configuration (Next.js, TypeScript, Tailwind, shadcn, fonts, deployment config)
+2. Data dictionary — TypeScript interfaces + static data files for Projects, Experience, Education, Tech Stack
+3. Layout shell — header navigation, footer, responsive container
+4. Sections (one at a time) — Hero → About + Tech Stack → Experience + Education → Projects
+5. SEO, performance audit, and quality pass
+
+# Quality Gates (per AGENTS.md)
+After each feature or section:
+- Run `npm run lint` — fix all warnings
+- Run type check — zero TypeScript errors
+- Run `npm run build` — clean build
+- Verify Lighthouse scores (Performance ≥90, SEO 100, Accessibility ≥90)
+
+# Skills Reference
+Implementation should use available skills for guidance:
+- **frontend-design skill** — design direction and aesthetic decisions
+- **shadcn skill** — component usage, composition, and CLI commands
+- **nextjs/next-best-practices skill** — App Router patterns, async APIs, metadata
 
 </PRD>
